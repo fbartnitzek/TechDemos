@@ -34,8 +34,8 @@ public class RemoveMealActivity extends Activity {
         super.onStart();
 
         // Set the heading
-        TextView heading_tv = (TextView) findViewById(R.id.textView_info_heading);
-        heading_tv.setText(getResources().getText(R.string.dislike_dinner_heading));
+        TextView headingText = (TextView) findViewById(R.id.textView_info_heading);
+        headingText.setText(getResources().getText(R.string.dislike_dinner_heading));
 
         // Set the text
         TextView tv = (TextView) findViewById(R.id.textView_info);

@@ -36,8 +36,8 @@ public class ShowRecipeActivity extends Activity {
         super.onStart();
 
         // Set the heading
-        TextView heading_tv = (TextView) findViewById(R.id.textView_info_heading);
-        heading_tv.setText(getResources().getText(R.string.show_recipe_heading));
+        TextView headingText = (TextView) findViewById(R.id.textView_info_heading);
+        headingText.setText(getResources().getText(R.string.show_recipe_heading));
 
         // Set the text
         TextView tv = (TextView) findViewById(R.id.textView_info);

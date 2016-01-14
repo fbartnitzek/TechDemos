@@ -44,8 +44,8 @@ public class ShowDinnerActivity extends Activity {
         super.onStart();
 
         // Set the heading of the info box
-        TextView heading_tv = (TextView) findViewById(R.id.textView_info_heading);
-        heading_tv.setText(getResources().getText(R.string.dinner_heading));
+        TextView headingText = (TextView) findViewById(R.id.textView_info_heading);
+        headingText.setText(getResources().getText(R.string.dinner_heading));
 
         // Get the text view
         tv = (TextView) findViewById(R.id.textView_info);

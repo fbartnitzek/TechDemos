@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/white"
-    android:clickable="false"
-    android:id="@+id/scrollview_dinner_suggestion"
-    android:fillViewport="false">
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
+<ScrollView android:id="@+id/scrollview_dinner_suggestion"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="1dp"
-            android:paddingBottom="5dp"
-            android:id="@+id/linear_layout_dinner_suggestion"
-            >
-    <fragment android:name="com.example.android.dinnerapp.UseInfoBoxFragment"
-        android:id="@+id/show_info_box"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:layout="@layout/show_info" />
+            android:layout_height="fill_parent"
+            android:background="@color/white"
+            android:clickable="false"
+            android:fillViewport="false">
 
-    <Button style="@style/button_solid"
-        android:text="Show recipe"
-        android:id="@+id/show_recipe"
-        android:onClick="showRecipe"/>
+    <LinearLayout android:id="@+id/linear_layout_dinner_suggestion"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingBottom="5dp"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:paddingTop="1dp">
 
-    <Button style="@style/button_solid"
-        android:text="Order online"
-        android:id="@+id/order_online"
-        android:onClick="orderOnline"/>
+        <fragment
+            android:id="@+id/show_info_box"
+            android:name="com.example.android.dinnerapp.UseInfoBoxFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:layout="@layout/show_info"/>
 
-    <Button style="@style/button_solid"
-        android:text="Choose again"
-        android:id="@+id/choose_again"
-        android:onClick="chooseAgain"/>
+        <Button
+            android:id="@+id/show_recipe"
+            style="@style/button_solid"
+            android:onClick="showRecipe"
+            android:text="Show recipe"/>
 
-    <Button style="@style/button_solid"
-        android:text="Seriously? \n I couldn\'t eat that!"
-        android:id="@+id/sounds_yukky"
-        android:layout_marginTop="30dp"
-        android:onClick="removeMeal" />
-</LinearLayout>
+        <Button
+            android:id="@+id/order_online"
+            style="@style/button_solid"
+            android:onClick="orderOnline"
+            android:text="Order online"/>
+
+        <Button
+            android:id="@+id/choose_again"
+            style="@style/button_solid"
+            android:onClick="chooseAgain"
+            android:text="Choose again"/>
+
+        <Button
+            android:id="@+id/sounds_yukky"
+            style="@style/button_solid"
+            android:layout_marginTop="30dp"
+            android:onClick="removeMeal"
+            android:text="Seriously? \n I couldn\'t eat that!"/>
+    </LinearLayout>
 
 </ScrollView>
 
