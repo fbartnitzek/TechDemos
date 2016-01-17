@@ -63,6 +63,7 @@ public class Dinner {
 
     // Utility function to get a random choice from an array
     public String getChoiceFromArray (String [] choices) {
+//        return Utility.getDinnerName(choices[randomGen.nextInt(choices.length)]);
         return choices[randomGen.nextInt(choices.length)];
     }
 

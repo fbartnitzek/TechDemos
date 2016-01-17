@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:id="@+id/scrollview_dinner_suggestion"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:clickable="false"
+            android:fillViewport="false">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_dinner_suggestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="1dp">
+
+        <fragment
+            android:name="com.example.android.dinnerapp.UseInfoBoxFragment"
+            android:id="@+id/show_info_box"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:layout="@layout/show_info"/>
+
+        <Button
+            android:id="@+id/add_to_cart_button"
+            style="@style/button_solid"
+            android:onClick="addDinnerToCart"
+            android:text="Add to cart"/>
+
+        <Button
+            android:id="@+id/start_checkout_button"
+            style="@style/button_solid"
+            android:onClick="startCheckout"
+            android:text="startCheckout"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/checkout_step_2_button"
+            android:text="Payment"
+            android:visibility="invisible"
+            style="@style/button_solid"
+            android:onClick="getPaymentInfo"/>
+
+        <Button
+            android:id="@+id/purchase_button"
+            style="@style/button_solid"
+            android:onClick="purchaseDinner"
+            android:text="purchase dinner"
+            android:visibility="invisible"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

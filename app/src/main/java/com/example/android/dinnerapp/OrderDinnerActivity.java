@@ -18,16 +18,27 @@ package com.example.android.dinnerapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.analytics.ecommerce.Product;
+import com.google.android.gms.analytics.ecommerce.ProductAction;
 
 
 public class OrderDinnerActivity extends Activity {
     String selectedDinnerExtrasKey = String.valueOf(R.string.selected_dinner);
 
+    String mDinner;
+    String mDinnerId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show_info);
+        setContentView(R.layout.order_dinner);
     }
 
     protected void onStart() {
@@ -40,9 +51,79 @@ public class OrderDinnerActivity extends Activity {
         // Set the text
         TextView tv = (TextView) findViewById(R.id.textView_info);
 
-        String dinner = getIntent().getStringExtra(selectedDinnerExtrasKey);
-        tv.setText("This is where you will order the selected dinner: \n\n" +
-                dinner);
+        mDinner = getIntent().getStringExtra(selectedDinnerExtrasKey);
+        mDinnerId = Utility.getDinnerId(mDinner);
+        tv.setText("This is where you will order the selected dinner: \n\n" + mDinner);
+        sendViewProductHit();
+    }
+
+    public void addDinnerToCart(View view) {
+        Toast.makeText(OrderDinnerActivity.this, "I will add the dinner "
+                + mDinner + " to the cart", Toast.LENGTH_SHORT).show();
+
+        Button button = (Button) findViewById(R.id.start_checkout_button);
+        button.setVisibility(View.VISIBLE);
+
+        button = (Button) findViewById(R.id.add_to_cart_button);
+        button.setVisibility(View.INVISIBLE);
+
+        sendAddToCartHit();
+    }
+
+    public void startCheckout(View view) {
+        Toast.makeText(OrderDinnerActivity.this, "checkout started ...", Toast.LENGTH_SHORT).show();
+        sendProductToHit(new ProductAction(ProductAction.ACTION_CHECKOUT), "Check out product");
+
+        findViewById(R.id.add_to_cart_button).setVisibility(View.INVISIBLE);
+        findViewById(R.id.start_checkout_button).setVisibility(View.INVISIBLE);
+        findViewById(R.id.checkout_step_2_button).setVisibility(View.VISIBLE);
+    }
+
+    public void getPaymentInfo(View view) {
+        Toast.makeText(OrderDinnerActivity.this, "collection payment infos ...", Toast.LENGTH_SHORT).show();
+
+        ProductAction productAction = new ProductAction(ProductAction.ACTION_CHECKOUT_OPTION)
+                .setCheckoutStep(2);
+        sendProductToHit(productAction, "get payment");
+
+        findViewById(R.id.checkout_step_2_button).setVisibility(View.INVISIBLE);
+        findViewById(R.id.purchase_button).setVisibility(View.VISIBLE);
+    }
+
+    public void purchaseDinner(View view) {
+        Toast.makeText(OrderDinnerActivity.this, "Purchasing " + mDinner, Toast.LENGTH_SHORT).show();
+        // in production it should be a Product for every item in cart...
+        ProductAction pa = new ProductAction(ProductAction.ACTION_PURCHASE)
+                .setTransactionId(Utility.getUniqueTransactionId(mDinnerId));
+        sendProductToHit(pa, "purchasing dinner");
+
+    }
+
+    private void sendAddToCartHit() {
+        sendProductToHit(new ProductAction(ProductAction.ACTION_ADD), "Add dinner to card");
+    }
+
+    public void sendViewProductHit() {
+        sendProductToHit(new ProductAction(ProductAction.ACTION_DETAIL), "View Order Dinner screen");
+    }
+
+    private void sendProductToHit(ProductAction productAction, String actionText) {
+        Product product = new Product()
+                .setName("dinner")
+                .setPrice(5)
+                .setVariant(mDinner)
+                .setId(mDinnerId)
+                .setQuantity(1);
+
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Shopping steps")
+                .setAction(actionText)
+                .setLabel(mDinner)
+                .addProduct(product)
+                .setProductAction(productAction)
+                .build());
     }
 
 }
