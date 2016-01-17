@@ -25,8 +25,7 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 
-public class MainActivity extends Activity
-        {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +80,11 @@ public class MainActivity extends Activity
         startActivity(dinnerIntent);
 
         return dinnerChoice;
+    }
+
+    public void showDinnerList(View view) {
+        // start activity that shows all dinners in app
+        startActivity(new Intent(this, ShowAllDinnersActivity.class));
     }
 }
 
