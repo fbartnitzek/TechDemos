@@ -25,6 +25,9 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 /**
  * Created by jocelyn on 3/12/15.
  */
@@ -42,6 +45,11 @@ public class ShowDinnerActivity extends Activity {
 
     protected void onStart() {
         super.onStart();
+
+        // send explicit screen hit views
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+        tracker.setScreenName("Show Dinner Screen");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         // Set the heading of the info box
         TextView headingText = (TextView) findViewById(R.id.textView_info_heading);
@@ -68,6 +76,14 @@ public class ShowDinnerActivity extends Activity {
         Intent intent = new Intent(this, RemoveMealActivity.class);
         intent.putExtra(selectedDinnerExtrasKey, mDinner);
         startActivity(intent);
+
+        // send a hit to Analytics - which are unpopular meals?
+        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Dinner actions")
+                .setAction("Dislike dinner choice")
+                .setLabel(mDinner)
+                .build());
     }
 
     public void showRecipe (View view) {

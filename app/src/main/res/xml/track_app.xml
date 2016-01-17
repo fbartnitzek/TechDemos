@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="ga_trackingId">UA-72494211-1</string>
-    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_autoActivityTracking">false</bool>
     <screenName name="com.example.android.dinnerapp.Dinner">Dinner</screenName>
     <screenName name="com.example.android.dinnerapp.MainActivity">Main</screenName>
     <screenName name="com.example.android.dinnerapp.OrderDinnerActivity">Order dinner</screenName>
