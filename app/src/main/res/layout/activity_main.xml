@@ -30,6 +30,13 @@
             android:id="@+id/show_all_dinners_button"
             android:onClick="showDinnerList"/>
 
+        <Button
+            android:id="@+id/show_daily_special_button"
+            android:onClick="showDailySpecial"
+            android:text="Show daily special"
+            android:layout_marginTop="30dp"
+            style="@style/button_solid"/>
+
     </LinearLayout>
 </ScrollView>
 

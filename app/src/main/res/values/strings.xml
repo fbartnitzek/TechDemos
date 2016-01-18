@@ -21,5 +21,6 @@
        We have eradicated it forever, you will never be bothered by it again. \n\n\nAt least
        that will be true when the eradication functionality has been implemented.</string>
     <string name="title_activity_show_all_dinners">ShowAllDinnersActivity</string>
+    <string name="title_activity_show_daily_special">ShowDailySpecialActivity</string>
 
 </resources>

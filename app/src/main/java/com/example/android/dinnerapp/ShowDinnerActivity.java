@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.tagmanager.DataLayer;
 
 /**
  * Created by jocelyn on 3/12/15.
@@ -77,13 +78,21 @@ public class ShowDinnerActivity extends Activity {
         intent.putExtra(selectedDinnerExtrasKey, mDinner);
         startActivity(intent);
 
-        // send a hit to Analytics - which are unpopular meals?
-        Tracker tracker = ((MyApplication) getApplication()).getTracker();
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Dinner actions")
-                .setAction("Dislike dinner choice")
-                .setLabel(mDinner)
-                .build());
+//        // send a hit to Analytics - which are unpopular meals?
+//        Tracker tracker = ((MyApplication) getApplication()).getTracker();
+//        tracker.send(new HitBuilders.EventBuilder()
+//                .setCategory("Dinner actions")
+//                .setAction("Dislike dinner choice")
+//                .setLabel(mDinner)
+//                .build());
+
+        // send hit to Tag Manager
+        DataLayer dl = ((MyApplication) getApplication()).getTagManager().getDataLayer();
+        dl.pushEvent("openScreen",
+                DataLayer.mapOf(
+                        "screen-name", "Dislike Dinner",
+                        "selected-dinner", mDinner));
+
     }
 
     public void showRecipe (View view) {

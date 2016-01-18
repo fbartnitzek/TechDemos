@@ -69,30 +69,23 @@ public class Dinner {
 
     public String getDinnerTonight() {
         // Get the dinner
-        String dinner = getChoiceFromArray(mealChoices);
-        return dinner;
+        return getChoiceFromArray(mealChoices);
     }
 
-    public String getFoodPref(int item) {
-        String menuPref;
+    public static String getFoodPref(int item) {
+
         switch (item) {
             case R.id.vegan_pref:
-                menuPref = "vegan";
-                break;
+                return "vegan";
             case R.id.vegetarian_pref:
-                menuPref = "vegetarian";
-                break;
+                return "vegetarian";
             case R.id.fish_pref:
-                menuPref =  "fish";
-                break;
+                return "fish";
             case R.id.meat_pref:
-                menuPref = "meat";
-                break;
+                return "meat";
             default:
-                menuPref = "unrestricted";
+                return "unrestricted";
         }
-        // Utility.showMyToast(menuPref, this);
-        return menuPref;
     }
 
     public String [] getAllDinners (Context context) {
