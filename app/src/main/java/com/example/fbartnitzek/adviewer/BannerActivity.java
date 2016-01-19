@@ -17,6 +17,7 @@ public class BannerActivity extends Activity {
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.setAdListener(new ToastListener(this));
         mAdView.loadAd(adRequest);
     }
 }
