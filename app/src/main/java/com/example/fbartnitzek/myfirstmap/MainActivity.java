@@ -15,8 +15,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
 
+    private static final LatLng LAT_LNG_FRANKFURT = new LatLng(50.108241, 8.681988);
+    private static final LatLng LAT_LNG_SEATTLE = new LatLng(47.6204, -122.3491);
+    private static final LatLng LAT_LNG_TOKYO = new LatLng(35.6744071, 139.7166253);
+    private static final LatLng LAT_LNG_NIAGRA_FALLS = new LatLng(43.0918241, -79.0732351);
     GoogleMap mMap;
     boolean mMapReady = false;
 
@@ -67,6 +73,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Button btnFrankfurt = (Button) findViewById(R.id.btnFrankfurt);
+        btnFrankfurt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flyTo(LAT_LNG_FRANKFURT);
+            }
+        });
+
+        Button btnSeattle = (Button) findViewById(R.id.btnSeattle);
+        btnSeattle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flyTo(LAT_LNG_SEATTLE);
+            }
+        });
+
+        Button btnTokyo = (Button) findViewById(R.id.btnTokyo);
+        btnTokyo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flyTo(LAT_LNG_TOKYO);
+            }
+        });
+
         // get map - so it can be dynamically changed
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -94,12 +124,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return super.onOptionsItemSelected(item);
     }
 
+    public void flyTo(LatLng target) {
+        if (mMapReady) {
+            CameraPosition cp = CameraPosition.builder().target(target)
+                    .zoom(17)
+                    .bearing(new Random().nextInt(360))
+                    .tilt(45).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cp),
+                    10000, null);
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMapReady = true;
         mMap = googleMap;
-        LatLng latLngNewYork = new LatLng(40.7484, -73.9857);   //set center
-        CameraPosition target = CameraPosition.builder().target(latLngNewYork).zoom(14).build();
+//        LatLng latLngNewYork = new LatLng(40.7484, -73.9857);   //set center
+        LatLng latLngNiagara = LAT_LNG_NIAGRA_FALLS;   //set center
+        CameraPosition target = CameraPosition.builder().target(latLngNiagara)
+                .zoom(18).bearing(190).tilt(67).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
     }
 }
