@@ -1,5 +1,6 @@
 package com.example.fbartnitzek.myfirstmap;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,9 +13,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.Random;
 
@@ -25,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final LatLng LAT_LNG_TOKYO = new LatLng(35.6744071, 139.7166253);
     private static final LatLng LAT_LNG_NIAGRA_FALLS = new LatLng(43.0918241, -79.0732351);
 
-    private static final LatLng LAT_LNG_NIAGARA_BREWING_COMPANY = new LatLng(43.0605312189011, -79.08148985000003);
-    private static final LatLng LAT_LNG_NIAGARA_SYNDICATE_BREWERY = new LatLng(43.0605312189011,-79.08148985000003);
+    private static final LatLng LAT_LNG_NIAGARA_BREWING_COMPANY = new LatLng(43.090999, -79.073581);
+    private static final LatLng LAT_LNG_NIAGARA_TAPS_ON_QUEEN = new LatLng(43.106514, -79.070924);
     private static final LatLng LAT_LNG_NIAGARA_US_FALL = new LatLng(43.084665, -79.070203);
     private static final LatLng LAT_LNG_NIAGARA_CA_FALL = new LatLng(43.078076, -79.075655);
     private static final LatLng LAT_LNG_NIAGARA_SHERATON_HOTEL = new LatLng(43.0909627,-79.0724642);
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     boolean mMapReady = false;
 
     MarkerOptions mMarkerNiagaraBrewing;
-    MarkerOptions mMarkerSyndicateBrewing;
+    MarkerOptions mMarkerNiagaraTapsOnQueen;
     MarkerOptions mMarkerNiagaraUsFall;
     MarkerOptions mMarkerNiagaraCaFall;
     MarkerOptions mMarkerNiagaraSheratonHotel;
@@ -113,14 +117,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mMarkerNiagaraBrewing = new MarkerOptions().title("Niagara Brewing Company")
                 .position(LAT_LNG_NIAGARA_BREWING_COMPANY);
-        mMarkerSyndicateBrewing = new MarkerOptions().title("Syndicate Restaurant & Brewery")
-                .position(LAT_LNG_NIAGARA_SYNDICATE_BREWERY);
+        mMarkerNiagaraTapsOnQueen = new MarkerOptions().title("Taps On Queen Brewhouse & Grill")
+                .position(LAT_LNG_NIAGARA_TAPS_ON_QUEEN);
         mMarkerNiagaraUsFall = new MarkerOptions().title("Niagara US Fall")
                 .position(LAT_LNG_NIAGARA_US_FALL);
         mMarkerNiagaraCaFall = new MarkerOptions().title("Niagara Canadian Fall")
                 .position(LAT_LNG_NIAGARA_CA_FALL);
         mMarkerNiagaraSheratonHotel = new MarkerOptions().title("Sheraton Hotel")
-                .position(LAT_LNG_NIAGARA_SHERATON_HOTEL);
+                .position(LAT_LNG_NIAGARA_SHERATON_HOTEL)
+                .icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_lock_power_off));
+        ;
 
         // get map - so it can be dynamically changed
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
@@ -168,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng latLngNiagara = LAT_LNG_NIAGRA_FALLS;   //set center
 
         mMap.addMarker(mMarkerNiagaraBrewing);
-        mMap.addMarker(mMarkerSyndicateBrewing);
+        mMap.addMarker(mMarkerNiagaraTapsOnQueen);
         mMap.addMarker(mMarkerNiagaraCaFall);
         mMap.addMarker(mMarkerNiagaraUsFall);
         mMap.addMarker(mMarkerNiagaraSheratonHotel);
@@ -176,5 +182,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         flyTo(latLngNiagara);
 
+        googleMap.addPolyline(new PolylineOptions().geodesic(true)
+                .add(LAT_LNG_NIAGARA_SHERATON_HOTEL)
+                .add(LAT_LNG_NIAGARA_US_FALL)
+                .add(LAT_LNG_NIAGARA_CA_FALL)
+                .add(LAT_LNG_NIAGARA_BREWING_COMPANY)
+                .add(LAT_LNG_NIAGARA_TAPS_ON_QUEEN)
+                .add(LAT_LNG_NIAGARA_SHERATON_HOTEL));
+
+        googleMap.addCircle(new CircleOptions()
+                        .center(LAT_LNG_NIAGARA_CA_FALL)
+                .radius(500)
+                .strokeColor(Color.RED));
     }
 }
