@@ -1,15 +1,20 @@
 package com.example.fbartnitzek.grandcanyonapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
+import com.google.android.gms.maps.StreetViewPanorama;
+import com.google.android.gms.maps.StreetViewPanoramaFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+
+public class MainActivity extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
+
+    private static final LatLng LAT_LNG_GRAND_CANYON = new LatLng(36.0579667, -112.1430996);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +23,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        StreetViewPanoramaFragment streetViewFragment =
+                (StreetViewPanoramaFragment) getFragmentManager()
+                        .findFragmentById(R.id.streetviewpanorama);
+        streetViewFragment.getStreetViewPanoramaAsync(this);
     }
 
     @Override
@@ -48,5 +49,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
+        streetViewPanorama.setPosition(LAT_LNG_GRAND_CANYON);
+        StreetViewPanoramaCamera pc = StreetViewPanoramaCamera.builder()
+                .bearing(180).build();
+        streetViewPanorama.animateTo(pc, 1000);
     }
 }
