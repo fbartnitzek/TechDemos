@@ -19,7 +19,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -69,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API, Plus.PlusOptions.builder().build())
-                .addScope(new Scope(Scopes.PROFILE))
+//                .addScope(new Scope(Scopes.PROFILE))
+                .addScope(new Scope(Scopes.EMAIL))  //reduced to account name
                 .build();
     }
 
@@ -122,8 +122,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mSignInProgress = STATE_SIGN_IN;
 
         // we are signed in - retrieve some profile information to personalize app for the user
-        Person currentUser = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-        mStatus.setText(String.format("Signed in to G+ as %s", currentUser.getDisplayName()));
+//        Person currentUser = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+//        mStatus.setText(String.format("Signed in to G+ as %s", currentUser.getDisplayName()));
+
+        // now just use account name for email...
+        mStatus.setText(String.format("Signed in with G+ account %s",
+                Plus.AccountApi.getAccountName(mGoogleApiClient)));
     }
 
     @Override
