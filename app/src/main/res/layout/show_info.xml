@@ -1,0 +1,57 @@
+<ScrollView android:id="@+id/scrollview_info"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/white"
+            android:clickable="false"
+            android:fillViewport="false">
+
+    <LinearLayout android:id="@+id/linear_layout_info"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingBottom="5dp"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/textView_info_heading"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle_solid"
+            android:clickable="false"
+            android:elevation="2dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:minHeight="60dp"
+            android:outlineProvider="background"
+            android:padding="10dp"
+            android:text="heading goes here"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textView_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rectangle"
+            android:elevation="2dp"
+            android:minHeight="150dp"
+            android:outlineProvider="background"
+            android:padding="10dp"
+            android:text="info goes here"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</ScrollView>

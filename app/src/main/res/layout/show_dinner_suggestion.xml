@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:id="@+id/scrollview_dinner_suggestion"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/white"
+            android:clickable="false"
+            android:fillViewport="false">
+
+    <LinearLayout android:id="@+id/linear_layout_dinner_suggestion"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingBottom="5dp"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:paddingTop="1dp">
+
+        <fragment
+            android:id="@+id/show_info_box"
+            android:name="com.example.android.dinnerapp.UseInfoBoxFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:layout="@layout/show_info"/>
+
+        <Button
+            android:id="@+id/show_recipe"
+            style="@style/button_solid"
+            android:onClick="showRecipe"
+            android:text="Show recipe"/>
+
+        <Button
+            android:id="@+id/order_online"
+            style="@style/button_solid"
+            android:onClick="orderOnline"
+            android:text="Order online"/>
+
+        <Button
+            android:id="@+id/choose_again"
+            style="@style/button_solid"
+            android:onClick="chooseAgain"
+            android:text="Choose again"/>
+
+        <Button
+            android:id="@+id/sounds_yukky"
+            style="@style/button_solid"
+            android:layout_marginTop="30dp"
+            android:onClick="removeMeal"
+            android:text="Seriously? \n I couldn\'t eat that!"/>
+    </LinearLayout>
+
+</ScrollView>
+
